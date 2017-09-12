@@ -87,3 +87,16 @@ At the top bar you can see the X, M and N configuration values, It displays the 
 
 ![Best X bids/asks](https://cdn.pbrd.co/images/GK4i0gr.png)
 
+---------------------------------------------------------------------------
+
+
+Going further you can see the latests Trades retrieved by the REST API provided by Bitso.
+
+
+At the bottom it includes a form to make Fake Buy/Sell Trades. This Fake trades are placed in the grid.
+
+
+Also the algorithm to create new Fake Buy/Sell Trades is available from the begining, that is configured by the 'M' and 'N' variables for to increase the uptick and downtick counts.
+
+![Trades](https://cdn.pbrd.co/images/GK4lMT1t.png)
+
