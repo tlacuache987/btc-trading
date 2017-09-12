@@ -81,4 +81,7 @@ Yo can set the parameters x, m and n passing the --config.x, --config.m and --co
 open http://localhost:8088/index.html in browser
 
 
+# Running the app
+
+![alt text](https://pasteboard.co/GK4i0gr.png)
 
