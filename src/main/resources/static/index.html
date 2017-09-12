@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet"
+	href="./bower_components/bootstrap-css-only/css/bootstrap.min.css" />
+<link href="./bower_components/c3/c3.min.css" rel="stylesheet" type="text/css"/>
+</head>
+<body ng-app="myApp">
+	<div class="container" ng-controller="AppController as vm">
+		<div class="row">
+			<div class="col-md-5">
+				<h1 style="margin: 0;">BITSO Trading Demo</h1>
+			</div>
+			<div class="col-md-4">
+				<h3 style="margin: 0;">X: {{vm.x}}, M: {{vm.m}}, N: {{vm.n}}</h3>
+			</div>
+		</div>
+		<h1>Available Books</h1>
+		<div class="alert alert-info" role="alert" ng-if="!(vm && vm.availableBooks)">Loading Books...</div>
+		<span ng-if="vm && vm.availableBooks"ng-repeat="book in vm.availableBooks track by $index">
+			{{book.book | uppercase}}<span ng-bind="$index < vm.availableBooks.length-1 ? ', ' : ''"></span> 
+		</span>
+
+		<hr />
+		
+		<h1>Best {{vm.x}} Bids / Asks</h1>
+		<div id="chart"></div>
+		
+		<hr />
+
+		<h1 style="display: inline;"></h1>
+		<h4 style="display: inline;"></h4>
+		<div class="row">
+			<div class="col-md-5">
+				<h1 style="margin: 0;">Trades book BTC_MXN</h1>
+			</div>
+			<div class="col-md-4">
+				<h3 style="margin: 0;">Current price:<br /> 1 BTC = {{vm.currentPrice | currency:'$':'2'}} MXN</h3>
+			</div>
+			<div class="col-md-3 text-right">
+				<h4>(upticks: {{vm.uptick}}, downtick: {{vm.downtick}})<br />last tick event: {{vm.tick_event}}</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-5">
+				<h4>(latest Trade Id: {{vm.marker_tid}})</h4>
+			</div>
+		</div>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<td>Trade Id</td>
+					<td>Trade Type</td>
+					<td>Maker side</td>
+					<td>Tick Type</td>
+					<td>Timestamp</td>
+					<td>Amount</td>
+					<td></td>
+					<td>Rate</td>
+					<td></td>
+					<td>Price</td>
+					<!-- <td>Expression</td> -->
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="trade in vm.latestTrades | limitTo:vm.x track by $index" ng-class="trade.realTrade===true ? ( (trade.maker_side==='sell') ? 'info' : 'success') : ( trade.generatedTrade ? 'danger' : ((trade.maker_side==='sell') ? 'active' : 'warning') )" >
+					<td>{{trade.tid}}</td>
+					<td>{{trade.realTrade ? "Real Trade" : "Fake Trade"}}</td>
+					<td>{{trade.maker_side | uppercase}}</td>
+					<td>{{trade.tick_type}}</td>
+					<td>{{trade.created_at | date:'medium'}}</td>
+					<td>{{trade.amount | number:'8'}} BTC</td>
+					<td>@</td>
+					<td>{{trade.price | currency:'$':'2'}} MXN</td>
+					<td>=</td>
+					<td>{{trade.total | currency:'$':'2'}} MXN</td>
+					<!-- <td>
+					{{trade.amount | number:'8'}} BTC @ {{trade.price | currency}} MXN = {{trade.total | currency:'$':'2'}} MXN
+					</td>  -->
+				</tr>
+			</tbody>
+		</table>
+		<div class="row">
+			<div class="col-md-8">
+				<form class="form-horizontal" role="form" style="border: 1px solid red; margin: 10px; padding: 20px 30px;">
+					<div class="form-group">
+						<label>Maker Side</label>
+						<select ng-model="vm.fakeMakerSide">
+							<option value="buy">BUY</option>
+							<option value="sell">SELL</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Amount of BTC</label>
+						<input type="text" class="form-control" ng-model="vm.fakeAmount" placeholder="Enter fake amount">
+					</div>
+					<div class="form-group">
+						<label>Rate in MXN per BTC</label>
+						<input type="text" class="form-control" ng-model="vm.fakeRate" placeholder="Enter fake rate">
+					</div>
+					<div class="form-group">
+						<button type="button" class="btn btn-danger" ng-click="vm.addFakeTrade();">Add Fake Trade</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+
+		<hr />
+
+		<div class="row">
+			<div class="col-md-12">
+				<h1 style="display: inline;">Orderbook BTC_MXN</h1>
+				<h4 style="display: inline;">(using coordination)<br />(seq: {{vm.orderBook.sequence}})</h4>
+				<div id="orders-output-2">
+					<div>
+						<h3>Bids (Buy)</h3>
+						<table class="table table-hover table-striped">
+							<thead>
+								<tr>
+									<td>Order Id</td>
+									<td>Amount</td>
+									<td></td>
+									<td>Rate</td>
+									<td></td>
+									<td>Price</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="bid in vm.orderBook.bids | limitTo:20" >
+									<td>{{bid.oid}}</td>
+									<td>{{bid.amount}} BTC</td>
+									<td>@</td>
+									<td>{{bid.price}} MXN</td>
+									<td>=</td>
+									<td>{{(vm.parseFloat(bid.amount) * vm.parseFloat(bid.price)).toFixed(8)}} MXN</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div>
+						<h3>Asks (Sell)</h3>
+						<table class="table table-hover table-striped">
+							<thead>
+								<tr>
+									<td>Order Id</td>
+									<td>Amount</td>
+									<td></td>
+									<td>Rate</td>
+									<td></td>
+									<td>Price</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="ask in vm.orderBook.asks | limitTo:20" >
+									<td>{{ask.oid}}</td>
+									<td>{{ask.amount}} BTC</td>
+									<td>@</td>
+									<td>{{ask.price}} MXN</td>
+									<td>=</td>
+									<td>{{(vm.parseFloat(ask.amount) * vm.parseFloat(ask.price)).toFixed(8)}} MXN</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<hr />
+		
+		<!-- <h1>Diff Orders {{vm.diffOrders.length}}</h1>
+		<div id="diff-orders-output-2"> 
+			<span ng-repeat="difforder in vm.diffOrders">
+				<span>[{{difforder.sequence}}] Id: {{difforder.payload[0].o}}, 
+						Type: {{difforder.payload[0].t===0 ? 'BUY' : 'SELL'}}, 
+						Rate: {{difforder.payload[0].r}}, Amount: {{difforder.payload[0].a}},
+						Value: {{difforder.payload[0].v}}, S: {{difforder.payload[0].s}}, .... {{difforder.payload[0]}} </span>
+				<br />
+			</span>
+		</div>
+		
+		<hr /> -->
+
+	</div>
+	<script src="./bower_components/d3/d3.min.js" charset="utf-8"></script>
+	<script src="./bower_components/c3/c3.min.js"></script>
+	
+	<script type="text/javascript"
+		src="./bower_components/angular/angular.min.js"></script>
+	<script type="text/javascript"
+		src="./bower_components/angular-resource/angular-resource.min.js"></script>
+	<script type="text/javascript"
+		src="./bower_components/lodash/dist/lodash.min.js"></script>
+
+	<script src="./bower_components/c3-angular/c3-angular.min.js"></script>
+
+	<script type="text/javascript" src="./app/app.js"></script>
+	<script type="text/javascript" src="./app/controllers.js"></script>
+	<script type="text/javascript" src="./app/services.js"></script>
+</body>
+</html>
