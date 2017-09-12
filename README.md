@@ -21,7 +21,7 @@ $ mvn clean package
 
 # How to execute
 
-1.- Simple execute using maven.
+Option 1: Simple execute using maven.
 
 ```sh
 $ pwd
@@ -35,8 +35,10 @@ By default x, m and n values are set as:
 
 x=20, m=2, n=2.
 
+---------------------------------------------------------------------------
 
-4.- Execute using maven, passing x, m and n parameters.
+
+Option 2: Execute using maven, passing x, m and n parameters.
 
 ```sh
 $ pwd
@@ -47,8 +49,10 @@ Yo can set the parameters x, m and n passing the -Drun.arguments paramter with a
 
 open http://localhost:8088/index.html in browser
 
+---------------------------------------------------------------------------
 
-3.- Simple execute using java.
+
+Option 3: Simple execute using java.
 
 ```sh
 $ pwd
@@ -62,8 +66,10 @@ By default x, m and n values are set as:
 
 x=20, m=2, n=2.
 
+---------------------------------------------------------------------------
 
-4.- Execute using java, passing x, m and n parameters.
+
+Option 4: Execute using java, passing x, m and n parameters.
 
 ```sh
 $ pwd
