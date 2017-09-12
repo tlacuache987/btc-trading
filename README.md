@@ -83,5 +83,5 @@ open http://localhost:8088/index.html in browser
 
 # Running the app
 
-![alt text](https://pasteboard.co/GK4i0gr.png)
+![alt text](https://cdn.pbrd.co/images/GK4i0gr.png)
 
