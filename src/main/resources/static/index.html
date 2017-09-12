@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <link rel="stylesheet"
-	href="./bower_components/bootstrap-css-only/css/bootstrap.min.css" />
+	href="./bower_components/bootstrap-css/css/bootstrap.min.css" />
 <link href="./bower_components/c3/c3.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body ng-app="myApp">
@@ -18,14 +18,14 @@
 		<h1>Available Books</h1>
 		<div class="alert alert-info" role="alert" ng-if="!(vm && vm.availableBooks)">Loading Books...</div>
 		<span ng-if="vm && vm.availableBooks"ng-repeat="book in vm.availableBooks track by $index">
-			{{book.book | uppercase}}<span ng-bind="$index < vm.availableBooks.length-1 ? ', ' : ''"></span> 
+			{{book.book | uppercase}}<span ng-bind="$index < vm.availableBooks.length-1 ? ', ' : ''"></span>
 		</span>
 
 		<hr />
-		
+
 		<h1>Best {{vm.x}} Bids / Asks</h1>
 		<div id="chart"></div>
-		
+
 		<hr />
 
 		<h1 style="display: inline;"></h1>
@@ -104,7 +104,7 @@
 				</form>
 			</div>
 		</div>
-		
+
 
 		<hr />
 
@@ -166,26 +166,26 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<hr />
-		
+
 		<!-- <h1>Diff Orders {{vm.diffOrders.length}}</h1>
-		<div id="diff-orders-output-2"> 
+		<div id="diff-orders-output-2">
 			<span ng-repeat="difforder in vm.diffOrders">
-				<span>[{{difforder.sequence}}] Id: {{difforder.payload[0].o}}, 
-						Type: {{difforder.payload[0].t===0 ? 'BUY' : 'SELL'}}, 
+				<span>[{{difforder.sequence}}] Id: {{difforder.payload[0].o}},
+						Type: {{difforder.payload[0].t===0 ? 'BUY' : 'SELL'}},
 						Rate: {{difforder.payload[0].r}}, Amount: {{difforder.payload[0].a}},
 						Value: {{difforder.payload[0].v}}, S: {{difforder.payload[0].s}}, .... {{difforder.payload[0]}} </span>
 				<br />
 			</span>
 		</div>
-		
+
 		<hr /> -->
 
 	</div>
 	<script src="./bower_components/d3/d3.min.js" charset="utf-8"></script>
 	<script src="./bower_components/c3/c3.min.js"></script>
-	
+
 	<script type="text/javascript"
 		src="./bower_components/angular/angular.min.js"></script>
 	<script type="text/javascript"
