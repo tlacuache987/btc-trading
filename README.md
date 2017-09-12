@@ -109,3 +109,8 @@ Each time the websocket receives a message that its Id doesnt match with the nex
 
 ![Bids](https://cdn.pbrd.co/images/GK4pZxr.png)
 ![Asks](https://cdn.pbrd.co/images/GK4qdbr.png)
+
+
+Have fun !
+
+---------------------------------------------------------------------------
