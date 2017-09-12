@@ -83,5 +83,7 @@ open http://localhost:8088/index.html in browser
 
 # Running the app
 
-![alt text](https://cdn.pbrd.co/images/GK4i0gr.png)
+At the top bar you can see the X, M and N configuration values, It displays the Available Books on the Bitso API and, the 'X' best asks/bids in a chart as well.
+
+![Best X bids/asks](https://cdn.pbrd.co/images/GK4i0gr.png)
 
