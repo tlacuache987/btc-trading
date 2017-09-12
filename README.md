@@ -93,10 +93,19 @@ At the top bar you can see the X, M and N configuration values, It displays the 
 Going further you can see the latests Trades retrieved by the REST API provided by Bitso.
 
 
-At the bottom it includes a form to make Fake Buy/Sell Trades. This Fake trades are placed in the grid.
+At the bottom of the Trades grid, it includes a form to make Fake Buy/Sell Trades. This Fake trades are placed into the grid.
 
 
-Also the algorithm to create new Fake Buy/Sell Trades is available from the begining, that is configured by the 'M' and 'N' variables for to increase the uptick and downtick counts.
+Also the algorithm to create new Fake Buy/Sell Trades is available from the beginning, that is configured by the 'M' and 'N' variables for to increase the uptick and downtick counts.
 
 ![Trades](https://cdn.pbrd.co/images/GK4lMT1t.png)
 
+---------------------------------------------------------------------------
+
+
+At the bottom of the page it includes the best 20 bids/asks from the order book btc_mxn retrieved by first time using Bitso API and then coordinated throught websockets.
+
+Each time the websocket receives a message that its Id doesnt match with the next message id expected, the application refresh the order book through Bitso API and then, again, it's coordinated through websockets.
+
+![Bids](https://cdn.pbrd.co/images/GK4pZxr.png)
+![Asks](https://cdn.pbrd.co/images/GK4qdbr.png)
